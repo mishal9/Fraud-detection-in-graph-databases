@@ -1,0 +1,10 @@
+#Load CSV into Neo4j
+
+:auto USING PERIODIC COMMIT 
+LOAD CSV WITH HEADERS FROM
+'file:///preprocessed.csv' AS line
+WITH line,
+MERGE (customer:Customer {id: line.customer})
+MERGE (bank:Bank {id: line.merchant})
+CREATE (transaction:Transaction {amount: line.amount, fraud: line.fraud, category: line.category})-[:WITH]->(bank)
+CREATE (customer)-[:MAKE]->(transaction);
