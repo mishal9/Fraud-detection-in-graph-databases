@@ -22,7 +22,7 @@ df['category'] = df['category'].apply(lambda x: x[1:-1])
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 df[['amount', 'fraud']] = scaler.fit_transform(df[['amount', 'fraud']])
-
+ 
 #Describe the data as features and label
 #Set the feature and class labels
 features = df.drop('fraud', axis = 1)
@@ -223,7 +223,7 @@ plt.xlabel('Tree depth')
 plt.show()
 #Max depth = 19
 
-
+from sklearn.ensemble import RandomForestClassifier
 rfc = RandomForestClassifier(n_estimators = 15, max_depth = 19, criterion = "entropy", random_state = 0, min_samples_split = 20)
 rfc.fit(x_train, y_train)
 #Predict for x_test
@@ -237,6 +237,7 @@ print("Accuracy score:",acc)
 cr = classification_report(y_test, y_pred)
 print(cr)
 
+'''
 from scipy.stats import randint as sp_randint
 # specify parameters and distributions to sample from
 param_dist = {"max_depth": [3, None], "max_features": sp_randint(1, x_train.shape[1]), "min_samples_split": sp_randint(2, 11), "bootstrap": [True, False], "n_estimators": sp_randint(100, 500)}
@@ -244,7 +245,7 @@ random_search = RandomizedSearchCV(rf, param_distributions=param_dist,
                                    n_iter=10, cv=5, iid=False, random_state=42)
 random_search.fit(x_train, y_train)
 print(random_search.best_params_)
-
+'''
 
 """SVC Linear"""
 print("SVM with linear kernel")
